@@ -7,10 +7,10 @@ import bg.government.regixclient.requests.grao.pna.PermanentAddressRequest;
 
 public class RegixClientDemo {
 
-    // password for a test keystore. For production keystores passwords must not be hardcoded
-    private static final char[] PASSWORD = "123456".toCharArray();
-    
     public static void main(String[] args) throws Exception {
+        
+        String keystorePassword = args[0];
+        
         System.setProperty("com.sun.xml.ws.transport.http.client.HttpTransportPipe.dump", "true");
         System.setProperty("com.sun.xml.internal.ws.transport.http.client.HttpTransportPipe.dump", "true");
         System.setProperty("com.sun.xml.ws.transport.http.HttpAdapter.dump", "true");
@@ -19,7 +19,7 @@ public class RegixClientDemo {
         PermanentAddressRequest personDataRequest = new PermanentAddressRequest();
         personDataRequest.setEGN("test");
         
-        RegixClient client = RegixClient.create(RegixClientDemo.class.getResourceAsStream("/test.jks"), PASSWORD);
+        RegixClient client = RegixClient.create(RegixClientDemo.class.getResourceAsStream("/test.jks"), keystorePassword.toCharArray());
         ServiceRequestData requestData = RegixClient.createRequestData(GraoOperation.PERMANENT_ADDRESS_SEARCH, personDataRequest);
         
         CallContext ctx = new CallContext();
