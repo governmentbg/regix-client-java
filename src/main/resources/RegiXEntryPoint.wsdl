@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="RegiXEntryPoint" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex"
+    xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract"
+    xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+    xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="http://tempuri.org/" xmlns:wsa10="http://www.w3.org/2005/08/addressing"
+    xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+    <wsp:Policy wsu:Id="WSHttpBinding_IRegiXEntryPoint_policy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+                    <wsp:Policy>
+                        <sp:TransportToken>
+                            <wsp:Policy>
+                                <sp:HttpsToken RequireClientCertificate="true" />
+                            </wsp:Policy>
+                        </sp:TransportToken>
+                        <sp:AlgorithmSuite>
+                            <wsp:Policy>
+                                <sp:Basic256 />
+                            </wsp:Policy>
+                        </sp:AlgorithmSuite>
+                        <sp:Layout>
+                            <wsp:Policy>
+                                <sp:Strict />
+                            </wsp:Policy>
+                        </sp:Layout>
+                    </wsp:Policy>
+                </sp:TransportBinding>
+                <wsaw:UsingAddressing />
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+    <wsdl:types>
+        <xs:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+            <xs:import namespace="http://www.w3.org/2000/09/xmldsig#" />
+            <xs:element name="Execute">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" maxOccurs="1" name="request" type="tns:ServiceRequestData" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:complexType name="ServiceRequestData">
+                <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="1" name="Operation" type="xs:string" />
+                    <xs:element minOccurs="0" maxOccurs="1" name="Argument">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:any />
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element minOccurs="0" maxOccurs="1" name="EIDToken" type="xs:string" />
+                    <xs:element minOccurs="0" maxOccurs="1" name="CallContext" type="tns:CallContext" />
+                    <xs:element minOccurs="0" maxOccurs="1" name="CallbackURL" type="xs:string" />
+                    <xs:element minOccurs="0" maxOccurs="1" name="EmployeeEGN" type="xs:string" />
+                    <xs:element minOccurs="0" maxOccurs="1" name="CitizenEGN" type="xs:string" />
+                    <xs:element minOccurs="1" maxOccurs="1" name="SignResult" type="xs:boolean" />
+                    <xs:element minOccurs="1" maxOccurs="1" name="ReturnAccessMatrix" type="xs:boolean" />
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="CallContext">
+                <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="1" name="ServiceURI" type="xs:string" />
+                    <xs:element minOccurs="0" maxOccurs="1" name="ServiceType" type="xs:string" />
+                    <xs:element minOccurs="0" maxOccurs="1" name="EmployeeIdentifier" type="xs:string" />
+                    <xs:element minOccurs="0" maxOccurs="1" name="EmployeeNames" type="xs:string" />
+                    <xs:element minOccurs="0" maxOccurs="1" name="EmployeeAditionalIdentifier" type="xs:string" />
+                    <xs:element minOccurs="0" maxOccurs="1" name="EmployeePosition" type="xs:string" />
+                    <xs:element minOccurs="0" maxOccurs="1" name="AdministrationOId" type="xs:string" />
+                    <xs:element minOccurs="0" maxOccurs="1" name="AdministrationName" type="xs:string" />
+                    <xs:element minOccurs="0" maxOccurs="1" name="ResponsiblePersonIdentifier" type="xs:string" />
+                    <xs:element minOccurs="0" maxOccurs="1" name="LawReason" type="xs:string" />
+                    <xs:element minOccurs="0" maxOccurs="1" name="Remark" type="xs:string" />
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="ExecuteResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" maxOccurs="1" name="ExecuteResult" type="tns:ServiceExecuteResult" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:complexType name="ServiceExecuteResult">
+                <xs:sequence>
+                    <xs:element minOccurs="1" maxOccurs="1" name="ServiceCallID" type="xs:decimal" />
+                    <xs:element minOccurs="1" maxOccurs="1" name="HasError" type="xs:boolean" />
+                    <xs:element minOccurs="0" maxOccurs="1" name="Error" type="xs:string" />
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="CheckResult">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" maxOccurs="1" name="argument" type="tns:ServiceCheckResultArgument" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:complexType name="ServiceCheckResultArgument">
+                <xs:sequence>
+                    <xs:element minOccurs="1" maxOccurs="1" name="ServiceCallID" type="xs:decimal" />
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="CheckResultResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" maxOccurs="1" name="CheckResultResult" type="tns:ServiceResultData" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:complexType name="ServiceResultData">
+                <xs:sequence>
+                    <xs:element minOccurs="1" maxOccurs="1" name="IsReady" type="xs:boolean" />
+                    <xs:element minOccurs="0" maxOccurs="1" name="Data" type="tns:DataContainer" />
+                    <xs:element minOccurs="0" maxOccurs="1" ref="q1:Signature" xmlns:q1="http://www.w3.org/2000/09/xmldsig#" />
+                    <xs:element minOccurs="1" maxOccurs="1" name="HasError" type="xs:boolean" />
+                    <xs:element minOccurs="0" maxOccurs="1" name="Error" type="xs:string" />
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="DataContainer">
+                <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="1" name="Request" type="tns:RequestContainer" />
+                    <xs:element minOccurs="0" maxOccurs="1" name="Response" type="tns:ResponseContainer" />
+                    <xs:element minOccurs="0" maxOccurs="1" name="Matrix">
+                        <xs:complexType>
+                            <xs:complexContent mixed="false">
+                                <xs:extension base="tns:AccessMatrixType">
+                                    <xs:attribute name="id" type="xs:ID" />
+                                </xs:extension>
+                            </xs:complexContent>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+                <xs:attribute name="id" type="xs:ID" />
+            </xs:complexType>
+            <xs:complexType name="RequestContainer">
+                <xs:sequence>
+                    <xs:any minOccurs="0" maxOccurs="1" />
+                </xs:sequence>
+                <xs:attribute name="id" type="xs:ID" />
+            </xs:complexType>
+            <xs:complexType name="ResponseContainer">
+                <xs:sequence>
+                    <xs:any minOccurs="0" maxOccurs="1" />
+                </xs:sequence>
+                <xs:attribute name="id" type="xs:ID" />
+            </xs:complexType>
+            <xs:complexType name="AccessMatrixType">
+                <xs:sequence>
+                    <xs:element minOccurs="1" maxOccurs="1" name="HasAccess" type="xs:boolean" />
+                    <xs:element minOccurs="0" maxOccurs="1" name="Name" type="xs:string" />
+                    <xs:element minOccurs="0" maxOccurs="1" name="Properties" type="tns:ArrayOfAMPropertyType" />
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="ArrayOfAMPropertyType">
+                <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="Property" type="tns:AMPropertyType" />
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="AMPropertyType">
+                <xs:sequence>
+                    <xs:element minOccurs="1" maxOccurs="1" name="HasAccess" type="xs:boolean" />
+                    <xs:element minOccurs="0" maxOccurs="1" name="Name" type="xs:string" />
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="ExecuteSynchronous">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" maxOccurs="1" name="request" type="tns:ServiceRequestData" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ExecuteSynchronousResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" maxOccurs="1" name="ExecuteSynchronousResult" type="tns:ServiceResultData" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+        <xs:schema elementFormDefault="qualified" targetNamespace="http://www.w3.org/2000/09/xmldsig#"
+            xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.w3.org/2000/09/xmldsig#">
+            <xs:element name="Signature">
+                <xs:complexType mixed="true">
+                    <xs:sequence>
+                        <xs:any maxOccurs="unbounded" />
+                    </xs:sequence>
+                    <xs:anyAttribute />
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="IRegiXEntryPoint_Execute_InputMessage">
+        <wsdl:part name="parameters" element="tns:Execute" />
+    </wsdl:message>
+    <wsdl:message name="IRegiXEntryPoint_Execute_OutputMessage">
+        <wsdl:part name="parameters" element="tns:ExecuteResponse" />
+    </wsdl:message>
+    <wsdl:message name="IRegiXEntryPoint_CheckResult_InputMessage">
+        <wsdl:part name="parameters" element="tns:CheckResult" />
+    </wsdl:message>
+    <wsdl:message name="IRegiXEntryPoint_CheckResult_OutputMessage">
+        <wsdl:part name="parameters" element="tns:CheckResultResponse" />
+    </wsdl:message>
+    <wsdl:message name="IRegiXEntryPoint_ExecuteSynchronous_InputMessage">
+        <wsdl:part name="parameters" element="tns:ExecuteSynchronous" />
+    </wsdl:message>
+    <wsdl:message name="IRegiXEntryPoint_ExecuteSynchronous_OutputMessage">
+        <wsdl:part name="parameters" element="tns:ExecuteSynchronousResponse" />
+    </wsdl:message>
+    <wsdl:portType name="IRegiXEntryPoint">
+        <wsdl:operation name="Execute">
+            <wsdl:input wsaw:Action="http://tempuri.org/IRegiXEntryPoint/Execute" message="tns:IRegiXEntryPoint_Execute_InputMessage" />
+            <wsdl:output wsaw:Action="http://tempuri.org/IRegiXEntryPoint/ExecuteResponse" message="tns:IRegiXEntryPoint_Execute_OutputMessage" />
+        </wsdl:operation>
+        <wsdl:operation name="CheckResult">
+            <wsdl:input wsaw:Action="http://tempuri.org/IRegiXEntryPoint/CheckResult" message="tns:IRegiXEntryPoint_CheckResult_InputMessage" />
+            <wsdl:output wsaw:Action="http://tempuri.org/IRegiXEntryPoint/CheckResultResponse" message="tns:IRegiXEntryPoint_CheckResult_OutputMessage" />
+        </wsdl:operation>
+        <wsdl:operation name="ExecuteSynchronous">
+            <wsdl:input wsaw:Action="http://tempuri.org/IRegiXEntryPoint/ExecuteSynchronous" message="tns:IRegiXEntryPoint_ExecuteSynchronous_InputMessage" />
+            <wsdl:output wsaw:Action="http://tempuri.org/IRegiXEntryPoint/ExecuteSynchronousResponse"
+                message="tns:IRegiXEntryPoint_ExecuteSynchronous_OutputMessage" />
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="WSHttpBinding_IRegiXEntryPoint" type="tns:IRegiXEntryPoint">
+        <wsp:PolicyReference URI="#WSHttpBinding_IRegiXEntryPoint_policy" />
+        <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+        <wsdl:operation name="Execute">
+            <soap12:operation soapAction="http://tempuri.org/IRegiXEntryPoint/Execute" style="document" />
+            <wsdl:input>
+                <soap12:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="CheckResult">
+            <soap12:operation soapAction="http://tempuri.org/IRegiXEntryPoint/CheckResult" style="document" />
+            <wsdl:input>
+                <soap12:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="ExecuteSynchronous">
+            <soap12:operation soapAction="http://tempuri.org/IRegiXEntryPoint/ExecuteSynchronous"
+                style="document" />
+            <wsdl:input>
+                <soap12:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="RegiXEntryPoint">
+        <wsdl:port name="WSHttpBinding_IRegiXEntryPoint" binding="tns:WSHttpBinding_IRegiXEntryPoint">
+            <soap12:address location="https://172.23.105.77/RegiX/RegiXEntryPoint.svc" />
+            <wsa10:EndpointReference>
+                <wsa10:Address>https://172.23.105.77/RegiX/RegiXEntryPoint.svc</wsa10:Address>
+            </wsa10:EndpointReference>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
