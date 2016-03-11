@@ -22,10 +22,6 @@ public class RegixClientDemo {
         ServiceRequestData requestData = RegixClient.createRequestData(GraoOperation.PERMANENT_ADDRESS_SEARCH, personDataRequest);
         
         CallContext ctx = new CallContext();
-        ctx.setAdministrationName("Министерски съвет");
-        ctx.setEmployeeIdentifier("12345");
-        ctx.setLawReason("reason");
-        
         requestData.setCallContext(ctx);
         
         System.out.println(client.executeSynchronous(requestData).getData().getResponse().getAny());
