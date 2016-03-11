@@ -7,6 +7,7 @@ import bg.government.regixclient.requests.grao.pna.PermanentAddressRequest;
 
 public class RegixClientDemo {
 
+    // password for a test keystore. For production keystores passwords must not be hardcoded
     private static final char[] PASSWORD = "123456".toCharArray();
     
     public static void main(String[] args) throws Exception {
