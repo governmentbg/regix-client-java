@@ -23,7 +23,7 @@ client.executeSynchronous(requestData);
 
 Заб.: Препоръчително е да се използват <a href="http://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html">Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files</a>
 
-Заб.: Не са генерирани всички класове за всички регистри. Това може да стане чрез следната команда
+Заб.: Не са генерирани всички класове за всички регистри. Това може да стане чрез следната команда, изпълнена в директория на съответните схеми (в директорията schemas)
 
 ```
 xjc -p bg.government.regixclient.requests.<institution>.<register> -d /target/directory
