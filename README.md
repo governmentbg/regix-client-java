@@ -22,3 +22,11 @@ client.executeSynchronous(requestData);
 ```
 
 Заб.: Препоръчително е да се използват <a href="http://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html">Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files</a>
+
+Заб.: Не са генерирани всички класове за всички регистри. Това може да стане чрез следната команда
+
+```
+xjc -p bg.government.regixclient.requests.<institution>.<register> -d /target/directory
+``` 
+
+Като за всеки регистър следва да бъдат добавени операциите в enum, имплементиращ Operation, като ключа на всяка операция се взема от http://regixaisweb.egov.bg/RegiXInfo/ 
