@@ -29,7 +29,7 @@
                 <version>3.1</version>
                 <configuration>
                     <source>${java.version}</source>
-                    <target>${java.verison}</target>
+                    <target>${java.version}</target>
                 </configuration>
             </plugin>
         </plugins>
