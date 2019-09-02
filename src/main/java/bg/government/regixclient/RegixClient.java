@@ -1,13 +1,8 @@
 package bg.government.regixclient;
 
-import java.io.InputStream;
-import java.math.BigDecimal;
-import java.security.KeyStore;
-import java.security.cert.CertificateException;
-import java.security.cert.X509Certificate;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.List;
+import bg.government.regixclient.ServiceRequestData.Argument;
+import bg.government.regixclient.requests.Operation;
+import com.sun.xml.ws.developer.JAXWSProperties;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.KeyManagerFactory;
@@ -18,11 +13,14 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 import javax.xml.ws.BindingProvider;
 import javax.xml.ws.soap.AddressingFeature;
-
-import bg.government.regixclient.ServiceRequestData.Argument;
-import bg.government.regixclient.requests.Operation;
-
-import com.sun.xml.internal.ws.developer.JAXWSProperties;
+import java.io.InputStream;
+import java.math.BigDecimal;
+import java.security.KeyStore;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
 
 /**
  * A client for Regix operations. Consumers can request data from registers through regix by using an instance of this

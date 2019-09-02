@@ -1,9 +1,10 @@
 package bg.government.regixclient;
 
-import java.lang.reflect.Field;
-
 import bg.government.regixclient.requests.grao.GraoOperation;
 import bg.government.regixclient.requests.grao.pna.PermanentAddressRequest;
+
+import java.lang.reflect.Field;
+import java.security.Security;
 
 public class RegixClientDemo {
 
@@ -30,7 +31,12 @@ public class RegixClientDemo {
 
     @SuppressWarnings("unused")
     private static void setupTLS() throws Exception {
-        // enable strong security
+        // strong security is enabled by default for Java 12
+
+        // enable strong security BEFORE Java 12
+        Security.setProperty("crypto.policy", "unlimited");
+
+        // enable strong security BEFORE Java 9
         Field field = Class.forName("javax.crypto.JceSecurity").getDeclaredField("isRestricted");
         field.setAccessible(true);
         field.set(null, java.lang.Boolean.FALSE);
